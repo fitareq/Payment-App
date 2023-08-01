@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dialog_text_color">#8F8F8F</color>
+    <color name="dialog_label_back_color">#EAEAEA</color>
 </resources>

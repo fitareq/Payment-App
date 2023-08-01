@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_corner">
+
+    <ImageView
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="@dimen/dialog_padding"
+        app:layout_constraintBottom_toTopOf="@id/download"
+        app:layout_constraintTop_toBottomOf="@id/cancel_button">
+
+        <ImageView
+            android:id="@+id/method_logo"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:src="@drawable/bkash_money_send_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bKash fund transfer"
+            android:textColor="@color/dialog_text_color"
+            android:textSize="@dimen/default_text_size"
+            app:layout_constraintEnd_toEndOf="@id/method_logo"
+            app:layout_constraintStart_toStartOf="@id/method_logo"
+            app:layout_constraintTop_toBottomOf="@id/method_logo" />
+
+        <TextView
+            android:id="@+id/transaction_info"
+            style="@style/dialogTextView"
+            android:layout_width="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/dialog_label_back_color"
+            android:padding="@dimen/dialog_padding_tiny"
+            android:text="Transaction info"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/guideline2" />
+
+        <TextView
+            android:id="@+id/number_label"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="bKash number"
+            app:layout_constraintEnd_toStartOf="@id/number_value"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/transaction_info"
+            app:layout_constraintTop_toBottomOf="@id/transaction_info" />
+
+        <TextView
+            android:id="@+id/number_value"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="01714000321"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/number_label"
+            app:layout_constraintTop_toBottomOf="@id/transaction_info" />
+
+        <TextView
+            android:id="@+id/name_label"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="bKash name"
+            app:layout_constraintEnd_toStartOf="@id/name_value"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/transaction_info"
+            app:layout_constraintTop_toBottomOf="@id/number_label" />
+
+        <TextView
+            android:id="@+id/name_value"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="Forhadul Islam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/name_label"
+            app:layout_constraintTop_toBottomOf="@id/number_label" />
+
+        <TextView
+            android:id="@+id/amount_label"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="Amount"
+            app:layout_constraintEnd_toStartOf="@id/amount_value"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/transaction_info"
+            app:layout_constraintTop_toBottomOf="@id/name_label" />
+
+        <TextView
+            android:id="@+id/amount_value"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="100.00"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/amount_label"
+            app:layout_constraintTop_toBottomOf="@id/name_label" />
+
+        <TextView
+            android:id="@+id/narration_label"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="Narration"
+            app:layout_constraintEnd_toStartOf="@id/narration_value"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/transaction_info"
+            app:layout_constraintTop_toBottomOf="@id/amount_label" />
+
+        <TextView
+            android:id="@+id/narration_value"
+            style="@style/dialogTextView"
+            android:layout_marginStart="@dimen/dialog_padding_tiny"
+            android:text="To Bkash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/narration_label"
+            app:layout_constraintTop_toBottomOf="@id/amount_label" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/download"
+        style="@style/buttonStyle"
+        android:layout_marginEnd="5dp"
+        android:drawableEnd="@drawable/ic_dowload"
+        android:text="Download"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/share"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/share"
+        style="@style/buttonStyle"
+        android:drawableEnd="@drawable/ic_share"
+        android:text="Share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/download" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

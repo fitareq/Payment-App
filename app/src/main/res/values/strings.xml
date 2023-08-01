@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Payment App</string>
+    <string name="number_hint">%1$s number</string>
+    <string name="name_hint">%1$s name</string>
+    <string name="cbbl_address">police plaza concord (level 10,tower2)\n plot 2, road 144, gulshan 1</string>
 </resources>
