@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rounded_corner">
@@ -35,6 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/method_logo_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="bKash fund transfer"
@@ -43,6 +45,32 @@
             app:layout_constraintEnd_toEndOf="@id/method_logo"
             app:layout_constraintStart_toStartOf="@id/method_logo"
             app:layout_constraintTop_toBottomOf="@id/method_logo" />
+
+        <LinearLayout
+            android:id="@+id/date_location_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@id/guideline2">
+
+            <TextView
+                android:id="@+id/location"
+                style="@style/dialogTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginEnd="@dimen/dialog_padding_tiny"
+                android:text="Location: " />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/dialogTextView"
+                android:layout_marginStart="@dimen/dialog_padding_tiny"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Date: " />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/transaction_info"
@@ -54,7 +82,7 @@
             android:padding="@dimen/dialog_padding_tiny"
             android:text="Transaction info"
             android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="@id/guideline2" />
+            app:layout_constraintTop_toBottomOf="@id/date_location_lay" />
 
         <TextView
             android:id="@+id/number_label"

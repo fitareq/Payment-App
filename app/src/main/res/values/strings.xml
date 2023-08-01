@@ -3,4 +3,5 @@
     <string name="number_hint">%1$s number</string>
     <string name="name_hint">%1$s name</string>
     <string name="cbbl_address">police plaza concord (level 10,tower2)\n plot 2, road 144, gulshan 1</string>
+    <string name="method_logo_sub">%1$s fund transfer</string>
 </resources>
