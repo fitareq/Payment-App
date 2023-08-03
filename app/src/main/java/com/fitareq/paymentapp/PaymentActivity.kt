@@ -3,10 +3,12 @@ package com.fitareq.paymentapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,11 +17,13 @@ import android.graphics.pdf.PdfDocument
 import android.graphics.pdf.PdfDocument.PageInfo
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -50,13 +54,13 @@ class PaymentActivity : AppCompatActivity() {
     private var address: String = "n/a"
     private var uri: Uri? = null
     private var dialog: Dialog? = null
-    private var currentDate="n/a"
+    private var currentDate = "n/a"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getUserCurrentLocation()
+        //getUserCurrentLocation()
         currentDate = getCurrentDateTime()
 
         paymentMethod = intent.getStringExtra(Constants.KEY_PAYMENT_METHOD) ?: ""
@@ -126,6 +130,7 @@ class PaymentActivity : AppCompatActivity() {
         bitmap = createBitmapFromDialog(view)
         checkWriteExternalStoragePermission()
     }
+
     private fun checkWriteExternalStoragePermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             if (ContextCompat.checkSelfPermission(
@@ -158,10 +163,11 @@ class PaymentActivity : AppCompatActivity() {
             } else {
                 toast("External storage access permission denied. PDF generation is not possible.")
             }
-        }else if (requestCode == REQUEST_LOCATION_PERMISSION){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
-                findLocation()
-            }else{
+        } else if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //findLocation()
+                checkLocationService()
+            } else {
                 toast("Access location permission denied.")
             }
         }
@@ -259,17 +265,10 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun getUserCurrentLocation() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ){
-            findLocation()
-        }else{
+        if (isLocationPermissionAccepted()) {
+            //findLocation()
+            checkLocationService()
+        } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -278,6 +277,21 @@ class PaymentActivity : AppCompatActivity() {
             )
         }
     }
+
+    private fun isLocationPermissionAccepted(): Boolean {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun checkLocationService() {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            showLocationServiceAlert()
+        } else {
+            findLocation()
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private fun findLocation() {
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -294,6 +308,25 @@ class PaymentActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showLocationServiceAlert(){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Location service is not enabled. Do you want to enable now?")
+            .setPositiveButton("Yes"
+            ) { _, _ ->
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+            .setNegativeButton("No"){dialog,_->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getUserCurrentLocation()
     }
 
 }
